@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import CartContext from '../context/CartContext';
 import Cart from "./Cart"
 
@@ -11,6 +11,24 @@ function Navbar() {
   const toggle = () => {
     setShowMenu((prevMenu) => !prevMenu);
   };
+
+  const closeMenuOnScroll = () =>{
+    if(showMenu){
+      setShowMenu(false)
+    }
+  }
+
+
+  useEffect(()=>{
+    window.addEventListener("scroll",closeMenuOnScroll)
+    // closes menu on scroll
+    return () =>{
+      window.removeEventListener("scroll",closeMenuOnScroll)
+      //cleanup of eventListener
+    }
+  },[showMenu])
+
+
 
   return (
     <div>
@@ -50,7 +68,7 @@ function Navbar() {
 
         <div className=" w[30%] lg:w-1/5 h-full flex items-center gap-5 px-4">
           <div className='relative'>
-            <span className=" text-3xl cursor-pointer " onClick={()=>(setCartOpen((prev)=>(!prev)))} > 🛒 </span>
+            <span className=" text-3xl cursor-pointer " onClick={()=>(setCartOpen((prev)=>(!prev)), setShowMenu(false))} > 🛒 </span>
             {cartOpen ? (<Cart setCartOpen = {setCartOpen} className='w-full h-screen'/>): ""}
 
             {cartItems.length > 0 ? (

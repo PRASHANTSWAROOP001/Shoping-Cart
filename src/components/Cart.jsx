@@ -35,7 +35,7 @@ function Cart({ setCartOpen }) {
       </button>
 
       <section className=" w-[90%] md:w-[50%] lg:[40%] min-h-96 max-h-[90%] border-2 flex flex-col  items-center rounded-t-xl shadow-lg ">
-        <h1 className="text-xl px-4 py-2 text-left">Your Shopping Cart</h1>
+        <h1 className="text-xl px-4 py-2 text-left">Your Shopping Cart {cartItems.length > 0 ? "" : " Is Empty :( "}</h1>
         <div className='flex flex-col gap-2 flex-grow overflow-y-auto w-full items-center'>
           
           {cartItems.map((items)=>(
