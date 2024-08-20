@@ -52,7 +52,7 @@ function Cart({ setCartOpen }) {
 
           <div>
             <h1 className="text-xl">
-              Total Cart Value is: <span> {cartValue} </span>
+              Total Cart Value is: <span> {cartValue} £ </span>
             </h1>
           </div>
         </div>

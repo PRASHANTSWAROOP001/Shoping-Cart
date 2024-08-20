@@ -98,7 +98,7 @@ function CartCard(props) {
 
         <div className="w-full h-[40%]  flex items-center justify-between" id="lowerdiv">
           <div>
-            <h1 className='text-xl font-semibold pl-2 md:pl-4 md:py-2'>{discountedPrice}</h1>
+            <h1 className='text-xl font-semibold pl-2 md:pl-4 md:py-2'>{discountedPrice}£</h1>
           </div>
 
           <div className ='mr-2 flex items-center border border-gray-300 gap-3'>
