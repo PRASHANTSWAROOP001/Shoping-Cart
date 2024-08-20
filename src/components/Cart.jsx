@@ -1,9 +1,28 @@
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useEffect } from 'react';
 import CartContext from '../context/CartContext';
 import CartCard from './CartCard';
 
 function Cart({ setCartOpen }) {
-  const { cartItems, setCartItems } = useContext(CartContext);
+
+  const { cartItems} = useContext(CartContext);
+  const [cartValue, setCartvalue] = useState(0)
+
+  // useEffect(() => {
+  //   const total_price = cartItems.reduce(
+  //     (accumulator, items) => (accumulator + items.discountedPrice * items.quantity),
+  //     0
+  //   );
+  
+  //   setCartvalue(total_price);
+  // }, [cartItems]);
+
+
+  useEffect (()=>{
+    let total_price = cartItems.reduce((accumulator, items) => (accumulator + items.discountedPrice * items.quantity),0);
+    setCartvalue(total_price)
+  },[cartItems])
+
+
 
   return (
     <div className=" fixed top-0  left-0 w-full h-screen bg-white z-50 flex items-center justify-center ">
@@ -18,8 +37,10 @@ function Cart({ setCartOpen }) {
       <section className=" w-[90%] md:w-[50%] lg:[40%] min-h-96 max-h-[90%] border-2 flex flex-col  items-center rounded-t-xl shadow-lg ">
         <h1 className="text-xl px-4 py-2 text-left">Your Shopping Cart</h1>
         <div className='flex flex-col gap-2 flex-grow overflow-y-auto w-full items-center'>
-          <CartCard/>
-          <CartCard/>
+          
+          {cartItems.map((items)=>(
+            <CartCard key={items.id} {...items} />
+          ))}
 
         </div>
         
@@ -31,7 +52,7 @@ function Cart({ setCartOpen }) {
 
           <div>
             <h1 className="text-xl">
-              Total Cart Value is: <span> {'1000₹'} </span>
+              Total Cart Value is: <span> {cartValue} </span>
             </h1>
           </div>
         </div>

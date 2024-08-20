@@ -1,11 +1,65 @@
 import React from 'react';
+import { useContext } from 'react';
+import CartContext from '../context/CartContext';
 
-function CartCard() {
+function CartCard(props) {
+
+  const {
+    id,
+    product_name,
+    brand_name,
+    category,
+    realPrice, // original price not used
+    discountedPrice,
+    image_link,
+    quantity
+  } = props
+
+  const { cartItems, setCartItems } = useContext(CartContext)
+
+  const deleteCart = (id) =>{
+    const newCartItems = cartItems.filter((items)=>(items.id != id))
+    setCartItems(newCartItems)
+  }
+
+  const increaseQuantity = (id) =>{
+
+    const updatedCart = cartItems.map((item)=>{
+      if (item.id === id){
+        return {
+          ...item,
+          quantity: item.quantity +1,
+        }
+      }
+      return item;
+    })
+
+    setCartItems(updatedCart)
+
+  }
+
+  const decreaseQuantity = (id) =>{
+
+    const updatedCart = cartItems.map((item)=>{
+
+      if(item.id === id){
+        return {
+          ...item,
+          quantity: item.quantity > 1 ? item.quantity-1 : 1,
+        }
+      }
+      return item
+    })
+
+    setCartItems(updatedCart)
+  }
+
+
   return (
     <div className="w-[90%] h-24 md:h-28  flex flex-row">
       <img
         className=" w-[20%] h-full object-fill"
-        src="https://img.freepik.com/free-vector/realistic-sunscreen-ad-concept_52683-42614.jpg?t=st=1724078555~exp=1724082155~hmac=8cfa14980e3bbc091c81ec221b8e9abfa8c08e896664d7ae0c4e679b4b765d61&w=740"
+        src={image_link}
         alt="prodcut imagde"
       />
 
@@ -16,14 +70,14 @@ function CartCard() {
             className="pl-2 md:px-4 md:py-2 w-[90%] h-full"
             id="product-info">
 
-            <h1 className="text-lg md:text-xl font-semibold ">{'Product Name'}</h1>
+            <h1 className="text-lg md:text-xl font-semibold ">{product_name}</h1>
             <h4 className="text-xs md:text-lg text-gray-800">
-              {'Brand Name'}|{'Brand Category'}
+              {brand_name}|{category}
             </h4>
           </div>
 
           <div className="h-full w-[10%] " id="deleteIcon">
-            <span >
+            <span onClick={()=>(deleteCart(id))} >
               <svg
                 className="w-6 h-6 md:my-1 md:ml-3 duration-500 hover:scale-105 cursor-pointer "
                 xmlns="http://www.w3.org/2000/svg"
@@ -44,14 +98,14 @@ function CartCard() {
 
         <div className="w-full h-[40%]  flex items-center justify-between" id="lowerdiv">
           <div>
-            <h1 className='text-xl font-semibold pl-2 md:pl-4 md:py-2'>{"100₹"}</h1>
+            <h1 className='text-xl font-semibold pl-2 md:pl-4 md:py-2'>{discountedPrice}</h1>
           </div>
 
           <div className ='mr-2 flex items-center border border-gray-300 gap-3'>
 
-            <button className ='px-2  text-xl font-bold '> - </button>
-                {"1"}
-            <button className='px-2  rounded-full text-xl font-bold'> + </button>
+            <button className ='px-2  text-xl font-bold ' onClick={()=>(decreaseQuantity(id))}> - </button>
+                {quantity}
+            <button className='px-2  rounded-full text-xl font-bold' onClick={()=>(increaseQuantity(id))}> + </button>
 
           </div>
 

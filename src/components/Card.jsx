@@ -17,22 +17,22 @@ function Card(props) {
       quantity: 1,
     }
 
-    const productExits = cartItems.some((items)=>(items.id === product.id))
+    const productExits = cartItems.some((item)=>(item.id === product.id))
 
     if (!productExits){
       setCartItems((prevItems)=>([...prevItems,cartObj]))
     }
     else{
 
-      const updatedItems = cartItems.map((items)=>{
-        if(items.id === product.id){
+      const updatedItems = cartItems.map((item)=>{
+        if(item.id === product.id){
           return {
-            ...items,
-            quantity: items.quantity +1,
+            ...item,
+            quantity: item.quantity +1,
           }
         }
         else{
-          return items;
+          return item;
         }
 
        
