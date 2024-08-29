@@ -1,4 +1,4 @@
-# E-Commerce Website
+# Add To Cart Feature React Website
 
 A fully responsive e-commerce website built with React and Context API. This project was created to explore and understand the workings of the Context API, particularly in managing state across components in a React application.
 
